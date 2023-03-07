@@ -11,29 +11,34 @@
 <script>
 $(document)
 // .ready(function(){
-//     ses = 
+//     session = request.getSession();
+//     ses = session.getAttribute("gUserid");
+//     console.log(ses)
+//     $('#lblauthor').text(ses);
 // })
 .on('click', '#btnUp',function(){
-    
     document.location="/boardUp"
 });
 </script>
 <body>
-<form:form method="POST" modelAttribute="comm">
+<form:form method="POST" action="/boardUp">
     <table id="tblboard" border="1">
-        <tr>
+        <!-- <tr>
             <td>작성자</td>
-            <td><label id="lblauthor"></label></td>
-        </tr>
+            <td colspan="2"><label id="lblauthor"></label></td>
+        </tr> -->
         <tr>
             <td>글 제목</td>
-            <td><input type="text" id="title" name="title" size="50"></td>
+            <td colspan="2"><input type="text" id="title" name="title" size="50"></td>
         </tr>
         <tr>
             <td>글 내용</td>
-            <td><textarea id="content" name="content" cols="50" rows="20"></textarea></td>
+            <td colspan="2"><textarea id="content" name="content" cols="50" rows="20"></textarea></td>
         </tr>
-        <tr><td colspan="2" align="right"><input type="submit" id="btnUp" name="btnUp" value="글 작성"></td>
+        <tr align="center">
+            <td><input type="submit" id="btnUp" name="btnUp" value="등록"></td>
+            <td><input type="submit" id="btnUp" name="btnMod" value="수정"></td>
+            <td><input type="submit" id="btnUp" name="btnDel" value="삭제"></td>
         </tr>
     </table>
 </form:form>

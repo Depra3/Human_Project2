@@ -12,7 +12,7 @@
         <table>
             <tr>
                 <td>아이디 : </td>
-                <td><form:input path="id" /></td>
+                <td><form:input path="uid" /></td>
             </tr>
             <tr>
                 <td>비밀번호 : </td>

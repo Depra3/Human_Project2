@@ -12,18 +12,13 @@ import lombok.Setter;
 public class User {
 
     @Id
-    private String id; // 여기서 id는 mongoDB에서 객체를 식별하기 위한 id
-    private String username; // 유저 id
-    private String password; // 비밀번호
-    private String fullName; // 이름
-    private String phoneNumber; // 핸드폰 번호
-    // private String id;
-    
-    // private String pw;
-    // private String nickname;
-    // private String name;
-    // private String email;
-    // private String mobile;
-    // private String admin;
-    // private String sort;
+    private String id;
+    private String uid;
+    private String pw;
+    private String nickname;
+    private String name;
+    private String email;
+    private String mobile;
+    private String admin;
+    private String sort;
 }

@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 
-@RestController
-public class DateController {
+// @RestController
+// public class DateController {
     
-    @Autowired
-    private CommRepository commRe;
+//     @Autowired
+//     private CommRepository commRe;
 
-    @RequestMapping("/boardUp")
-    public Community boardUp(@RequestBody Community comm){
-        // commRepository.save(comm);Community comm
-        // ses
-        // comm.setAuthor();
-        comm.setReq_date(new Date());
-        return commRe.save(comm);
-    }
-}
+//     @RequestMapping("/boardUp")
+//     public Community boardUp(@RequestBody Community comm){
+//         // commRepository.save(comm);Community comm
+//         // ses
+//         // comm.setAuthor();
+//         comm.setReq_date(new Date());
+//         return commRe.save(comm);
+//     }
+// }

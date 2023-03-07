@@ -9,16 +9,12 @@
     <table>
       <tr>
         <th>아이디</th>
-        <th>비밀번호</th>
-        <th>이름</th>
-        <th>핸드폰 번호</th>
+        <th>닉네임</th>
       </tr>
       <c:forEach var="user" items="${userList}">
         <tr>
-          <td>${user.username}</td>
-          <td>${user.password}</td>
-          <td>${user.fullName}</td>
-          <td>${user.phoneNumber}</td>
+          <td>${user.uid}</td>
+          <td>${user.nickname}</td>
         </tr>
       </c:forEach>
     </table>

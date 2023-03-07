@@ -11,14 +11,15 @@
         <table>
             <tr>
                 <td>아이디:</td>
-                <td><input type="text" name="username" /></td>
+                <td><input type="text" name="uid" /></td>
             </tr>
             <tr>
                 <td>비밀번호:</td>
-                <td><input type="password" name="password" /></td>
+                <td><input type="password" name="pw" /></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="로그인" /></td>
+                <td><input type="submit" value="로그인" /></td>
+                <td><a href='/'>홈으로</a></td>
             </tr>
         </table>
     </form>

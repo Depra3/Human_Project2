@@ -13,7 +13,7 @@ import java.util.Date;
 public class Community{
 
     @Id
-    // private String id;
+    private String c_id;
     private Integer num;
     private String title;
     private String content;
