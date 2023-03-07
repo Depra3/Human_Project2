@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class MyController {
     
     @Autowired
     private UserRepository userRepository;
+    // @Autowired
+    // private CommRepository commRepository;
 
     @GetMapping("/")
     public String index() {
@@ -24,11 +28,13 @@ public class MyController {
     public String showLoginForm() {
         return "login";
     }
+
     @PostMapping("/login")
-    public String loginUser(User user) {
+    public String loginUser(User user, HttpSession session) {
         User existingUser = userRepository.findByUsername(user.getUsername());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return "redirect:/";
+            session.setAttribute("username", user.getUsername());
+            return "redirect:/home";
         } else {
             return "login";
         }
@@ -56,7 +62,7 @@ public class MyController {
 
     @RequestMapping("/board")
     public String board(){
-        
         return "board";
     }
+
 }

@@ -10,14 +10,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 $(document)
+// .ready(function(){
+//     ses = 
+// })
 .on('click', '#btnUp',function(){
-    db = connect( 'mongodb+srv://stu_m:9rRC8Qey78CKn3iz@cluster0.hhtslat.mongodb.net/sdb?retryWrites=true&w=majority');
+    
     document.location="/boardUp"
-})
+});
 </script>
 <body>
 <form:form method="POST" modelAttribute="comm">
     <table id="tblboard" border="1">
+        <tr>
+            <td>작성자</td>
+            <td><label id="lblauthor"></label></td>
+        </tr>
         <tr>
             <td>글 제목</td>
             <td><input type="text" id="title" name="title" size="50"></td>

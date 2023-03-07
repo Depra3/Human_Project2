@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -12,11 +13,16 @@ import lombok.Setter;
 public class Community{
 
     @Id
-    private String id;
-    private String num;
+    // private String id;
+    private Integer num;
     private String title;
     private String content;
     private String author;
-    private String req_date;
-    private String mod_date;
+    private Date req_date;
+    private Date mod_date;
+
+    // @Override
+    // public String toString(){
+    //     return String.format("Community[")
+    // }
 }

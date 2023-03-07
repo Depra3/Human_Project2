@@ -17,5 +17,13 @@ public class User {
     private String password; // 비밀번호
     private String fullName; // 이름
     private String phoneNumber; // 핸드폰 번호
-
+    // private String id;
+    
+    // private String pw;
+    // private String nickname;
+    // private String name;
+    // private String email;
+    // private String mobile;
+    // private String admin;
+    // private String sort;
 }

@@ -8,6 +8,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 $(document)
+.ready(function(){
+    // $.post('/login',{},function(data){
+    //     if(data==''){
+    //         str = "<a href='/register'>회원가입 이동</a>&nbsp;&nbsp;<a href='/login'>로그인</a>&nbsp;&nbsp;<a href='/users>회원목록 이동</a>";
+    //     }
+    // }, 'text')
+})
 .on('click', '#btnWrite',function(){
     document.location="/board"
 })
@@ -16,9 +23,7 @@ $(document)
     <h1>홈페이지</h1>
     
     <h1>Welcome to My Home!!!</h1>
-    <a href="/register">회원가입 이동</a>
-    <a href='/login'>로그인</a>
-    <a href="/users">회원목록 이동</a>
+    
     <br><br>
     <table border="1" align="center">
         <tr>
