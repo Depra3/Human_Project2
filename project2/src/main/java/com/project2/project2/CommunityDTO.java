@@ -14,7 +14,7 @@ public class CommunityDTO {
     private String title;
     private String content;
     private String author;
-    private Date req_date;
+    private Date reg_date;
     private Date mod_date;
 
     // public CommunityDTO(String id, Integer num, String title, String content, String author, Date req_date, Date mod_date){
@@ -57,11 +57,11 @@ public class CommunityDTO {
     public void setAuthor(String author) {
         this.author = author;
     }
-    public Date getReq_date() {
-        return req_date;
+    public Date getReg_date() {
+        return reg_date;
     }
-    public void setReq_date(Date req_date) {
-        this.req_date = req_date;
+    public void setReg_date(Date reg_date) {
+        this.reg_date = reg_date;
     }
     public Date getMod_date() {
         return mod_date;
@@ -73,6 +73,6 @@ public class CommunityDTO {
     @Override
     public String toString(){
         return "CommunityDTO{ num=" + num + ", title=" + title + ", content=" + content + 
-                            ", author=" + author + ",req_date=" + req_date + ",mod_date=" + mod_date + "}";
+                            ", author=" + author + ",req_date=" + reg_date + ",mod_date=" + mod_date + "}";
     }
 }

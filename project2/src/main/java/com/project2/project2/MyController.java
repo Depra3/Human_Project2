@@ -1,5 +1,6 @@
 package com.project2.project2;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,10 +26,16 @@ public class MyController {
 
     @GetMapping("/")
     public String index(Model m){
-        // List<CommunityDTO> cList = cDao.findAll();
-        // m.addAttribute("cList", cList);
+        List<CommunityDTO> cList = cDao.findAll();
+        m.addAttribute("cList",cList);
         return "home";
     }
+    // @GetMapping("/users")
+    // public String listUsers(Model model) {
+    //     List<MemberDTO> mList = mDao.findAll();
+    //     model.addAttribute("mList", mList);
+    //     return "users";
+    // }
     
     @GetMapping("/login")
     public String login(){ return "login"; }
@@ -102,11 +109,15 @@ public class MyController {
         HttpSession ses = req.getSession();
         String author = (String) ses.getAttribute("gUserid");
         // cDto.setNum();
-        int maxValue = cDto.getNum().getInteger("maxValue");
-        if (maxValue == null){
-            maxValue = 1;
-        }
-        cDto.setReq_date(new Date());
+        // int maxValue = cDto.getNum().getInteger("maxValue");
+        // if (maxValue != 1){
+        //     maxValue = 1;
+        // }
+        // SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        // Date date = new Date();
+        // String iDate = sDate.format(date);
+        // cDto.setReg_date(iDate);
+        cDto.setReg_date(new Date());
         cDto.setMod_date(null);
         cDto.setAuthor(author);
         cDao.save(cDto);
