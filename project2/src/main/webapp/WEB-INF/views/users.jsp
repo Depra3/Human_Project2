@@ -11,10 +11,10 @@
         <th>아이디</th>
         <th>닉네임</th>
       </tr>
-      <c:forEach var="user" items="${userList}">
+      <c:forEach var="mem" items="${mList}">
         <tr>
-          <td>${user.uid}</td>
-          <td>${user.nickname}</td>
+          <td>${mem.uid}</td>
+          <td>${mem.nickname}</td>
         </tr>
       </c:forEach>
     </table>

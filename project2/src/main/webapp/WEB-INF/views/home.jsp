@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@ $(document)
 .ready(function(){
     $.post('/loginchk',{},function(data){
         if(data == ''){
-            str = "<a href='/register'>회원가입 이동</a>&nbsp;&nbsp;<a href='/login'>로그인</a>&nbsp;&nbsp;<a href='/users'>회원목록 이동</a><br><br>";
+            str = "<a href='/register'>회원가입</a>&nbsp;&nbsp;<a href='/login'>로그인</a>&nbsp;&nbsp;<a href='/users'>회원목록</a><br><br>";
         }else{
             str = "<label>" + data + "</label>&nbsp;&nbsp;<button id='btnsignout'>로그 아웃</button><br><br>"
         }
@@ -42,18 +43,21 @@ $(document)
     <div id="dvHead" style="width: 100%;"></div>
     <table border="1" align="center" id="tblboard">
         <tr>
-            <th>글 번호</th><th>글 제목</th><th>글 내용</th><th>글 작성자</th><th>등록 일자</th>
+            <th>글 번호</th>
+            <th>글 제목</th><th>글 내용</th>
+            <th>글 작성자</th>
+            <th>등록 일자</th>
         </tr>
-        <c:forEach var="list" items="${c_List}">
-            <tr>
-                <td>${list.num}</td>
-                <td>${list.title}</td>
-                <td>${list.content}</td>
-                <td>${list.author}</td>
-                <td>${list.reg_date}</td>
-                <td>${list.mod_date}</td>
-            </tr>
-        </c:forEach>
+        <!-- <c:forEach var="list" items="${cList}">
+            <tr> -->
+                <!-- <td>${list.num}</td> -->
+                <!-- <td>${list.title}</td>
+                <td>${list.content}</td> -->
+                <!-- <td>${list.author}</td> -->
+                <!-- <td>${list.reg_date}</td> -->
+                <!-- <td>${list.mod_date}</td> -->
+            <!-- </tr>
+        </c:forEach> -->
     </table>    
     
 </body>

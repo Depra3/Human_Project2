@@ -8,8 +8,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Document(collection = "users") // DB안에 users라는 콜렉션에 저장(table 개념)
-public class User {
+@Document(collection = "member")
+public class MemberDTO {
 
     @Id
     private String id;

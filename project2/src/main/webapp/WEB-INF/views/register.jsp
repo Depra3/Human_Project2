@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>회원가입</h1>
-    <form:form method="POST" modelAttribute="user">
+    <form:form method="POST" modelAttribute="member">
         <table>
             <tr>
                 <td>아이디 : </td>

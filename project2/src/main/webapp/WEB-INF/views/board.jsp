@@ -16,12 +16,12 @@ $(document)
 //     console.log(ses)
 //     $('#lblauthor').text(ses);
 // })
-.on('click', '#btnUp',function(){
-    document.location="/boardUp"
-});
+// .on('click', '#btnUp',function(){
+//     document.location="/"
+// });
 </script>
 <body>
-<form:form method="POST" action="/boardUp">
+<form method="POST" action="/board">
     <table id="tblboard" border="1">
         <!-- <tr>
             <td>작성자</td>
@@ -41,6 +41,6 @@ $(document)
             <td><input type="submit" id="btnUp" name="btnDel" value="삭제"></td>
         </tr>
     </table>
-</form:form>
+</form>
 </body>
 </html>

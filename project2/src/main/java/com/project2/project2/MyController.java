@@ -1,5 +1,6 @@
 package com.project2.project2;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,56 +19,35 @@ import jakarta.servlet.http.HttpSession;
 public class MyController {
     
     @Autowired
-    private UserRepository userRepository;
-    private CommRepository commRepository;
+    private MemberDAO mDao;
+    @Autowired
+    private CommunityDAO cDao;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model m){
+        // List<CommunityDTO> cList = cDao.findAll();
+        // m.addAttribute("cList", cList);
         return "home";
     }
-
+    
     @GetMapping("/login")
-    public String showLoginForm() {
-        return "login";
-    }
+    public String login(){ return "login"; }
+    @GetMapping("/user")
+    public String userChk(){ return "user"; }
 
     @PostMapping("/login")
-    public String loginUser(User user, HttpSession session) {
-        User existingUser = userRepository.findByUid(user.getUid());
-        if (existingUser != null && existingUser.getPw().equals(user.getPw())) {
-            session.setAttribute("gUserid", user.getUid());
+    public String doLogin(MemberDTO mem, HttpSession ses){
+        MemberDTO eDto = mDao.findByUid(mem.getUid());
+        if(eDto != null && eDto.getPw().equals(eDto.getPw())){
+            ses.setAttribute("gUserid", mem.getUid());
             return "redirect:/";
         } else {
-            System.out.println("aaa");
-            return "login";            
+            return "login";
         }
     }
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String registerUser(User user) {
-        user.setAdmin("False");
-        user.setSort("o");
-        userRepository.save(user);
-        return "redirect:/login";
-    }
-
-    // 회원정보 목록 출력
-    @GetMapping("/users")
-    public String listUsers(Model model) {
-        List<User> userList = userRepository.findAll();
-        model.addAttribute("userList", userList);
-        return "users";
-    }
-
     @RequestMapping("/loginchk")
     @ResponseBody
-    public String loginok(HttpServletRequest req){
+    public String loginChk(HttpServletRequest req){
         String str ="";
         HttpSession session = req.getSession();
         String uid = (String) session.getAttribute("gUserid");
@@ -80,7 +60,7 @@ public class MyController {
     }
     @RequestMapping("/signout")
     @ResponseBody
-    public String doSignout(HttpServletRequest req){
+    public String doSignOut(HttpServletRequest req){
         String retval = "";
         try {
             HttpSession session = req.getSession();
@@ -92,46 +72,51 @@ public class MyController {
         return retval;
     }
 
-    @GetMapping("/board")
-    public String board(Model model){
-        model.addAttribute("comm", new Community());
-        return "board";
+    @GetMapping("/users")
+    public String listUsers(Model model) {
+        List<MemberDTO> mList = mDao.findAll();
+        model.addAttribute("mList", mList);
+        return "users";
     }
 
+    @GetMapping("/register")
+    public String register(Model model){
+        model.addAttribute("member", new MemberDTO());
+        return "register";
+    }
+    @PostMapping("/register")
+    public String doRegister(MemberDTO mDto){
+        mDto.setAdmin("False");
+        mDto.setSort("o");
+        mDao.save(mDto);
+        return "redirect:/login";
+    }
 
-    @PostMapping("/board")   
-    public String boardUp(Community comm, HttpServletRequest req) {
-        Community existingComm = commRepository.findByNum(comm.getNum());
-        HttpSession session = req.getSession();
-        String author = (String) session.getAttribute("gUserid");
-        System.out.println(author);
-        String title = (String) req.getParameter("title");
-        String content = (String) req.getParameter("content");
-        
-        int Comm_num = 0;
-        // if(existingComm.getNum() != null){
-        //     Comm_num = existingComm.getNum().MAX_VALUE+1;
-        // }
-
-        comm.setNum(Comm_num);
-        comm.setTitle(title);
-        comm.setContent(content);
-        comm.setReq_date(new Date());
-        comm.setAuthor(author);
-        commRepository.save(comm);
+    @GetMapping("/board")
+    public String board(Model model){
+        model.addAttribute("cDao", new CommunityDTO());
+        return "board";
+    }
+    @PostMapping("/board")
+    public String doBoard(CommunityDTO cDto, HttpServletRequest req){
+        HttpSession ses = req.getSession();
+        String author = (String) ses.getAttribute("gUserid");
+        // cDto.setNum();
+        int maxValue = cDto.getNum().getInteger("maxValue");
+        if (maxValue == null){
+            maxValue = 1;
+        }
+        cDto.setReq_date(new Date());
+        cDto.setMod_date(null);
+        cDto.setAuthor(author);
+        cDao.save(cDto);
         return "redirect:/";
     }
 
-    @RequestMapping("/boardMod")
-    @ResponseBody
-    public String boardMod(Integer num, Community comm) {
-        Community existingComm = commRepository.findByNum(num);
-        if (existingComm != null) {
-            existingComm.setMod_date(new Date());
-            commRepository.save(comm);
-            return "redirect:/";
-        }else{
-            return "fail";
-        }
+    @GetMapping("/mg")
+    public String doManage(){
+        return "management";
     }
+
+
 }
