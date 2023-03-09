@@ -1,16 +1,19 @@
 package com.project2.project2;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,12 +33,6 @@ public class MyController {
         m.addAttribute("cList",cList);
         return "home";
     }
-    // @GetMapping("/users")
-    // public String listUsers(Model model) {
-    //     List<MemberDTO> mList = mDao.findAll();
-    //     model.addAttribute("mList", mList);
-    //     return "users";
-    // }
     
     @GetMapping("/login")
     public String login(){ return "login"; }
@@ -44,9 +41,11 @@ public class MyController {
 
     @PostMapping("/login")
     public String doLogin(MemberDTO mem, HttpSession ses){
+        
         MemberDTO eDto = mDao.findByUid(mem.getUid());
-        if(eDto != null && eDto.getPw().equals(eDto.getPw())){
+        if(eDto != null && eDto.getPw().equals(mem.getPw())){
             ses.setAttribute("gUserid", mem.getUid());
+            ses.setAttribute("admin", eDto.getAdmin());
             return "redirect:/";
         } else {
             return "login";
@@ -80,15 +79,15 @@ public class MyController {
     }
 
     @GetMapping("/users")
-    public String listUsers(Model model) {
+    public String listUsers(Model m) {
         List<MemberDTO> mList = mDao.findAll();
-        model.addAttribute("mList", mList);
+        m.addAttribute("mList", mList);
         return "users";
     }
 
     @GetMapping("/register")
-    public String register(Model model){
-        model.addAttribute("member", new MemberDTO());
+    public String register(Model m){
+        m.addAttribute("member", new MemberDTO());
         return "register";
     }
     @PostMapping("/register")
@@ -100,8 +99,8 @@ public class MyController {
     }
 
     @GetMapping("/board")
-    public String board(Model model){
-        model.addAttribute("cDao", new CommunityDTO());
+    public String board(Model m){
+        m.addAttribute("cDao", new CommunityDTO());
         return "board";
     }
     @PostMapping("/board")
@@ -125,9 +124,38 @@ public class MyController {
     }
 
     @GetMapping("/mg")
-    public String doManage(){
+    public String doManage(Model m){
+        List<MemberDTO> mList = mDao.findAll();
+        m.addAttribute("mList", mList);
         return "management";
     }
 
+    @ResponseBody
+    @RequestMapping("/memSearch")
+    public String searchMem() {
+        List<MemberDTO> m_List = mDao.findAll();
+        JSONArray ja = new JSONArray();
+        for(int i = 0; i < m_List.size(); i++){
+            JSONObject jo = new JSONObject();
+            jo.put("uid", m_List.get(i).getUid());
+            jo.put("pw", m_List.get(i).getPw());
+            jo.put("nickname", m_List.get(i).getNickname());
+            jo.put("name", m_List.get(i).getName());
+            jo.put("email", m_List.get(i).getEmail());
+            jo.put("mobile", m_List.get(i).getMobile());
+            ja.add(jo);
+        }
+        return ja.toString();
+    }
 
+    @ResponseBody
+    @RequestMapping("/memDel")
+    public String delMem(HttpServletRequest req, @RequestParam(value="arr") String[] array){
+        if (req.getParameter("optype").equals("delete")) {
+            String d_List = req.getParameter("delList");
+            System.out.println(d_List);
+        }
+        // mDao.deleteById(null);
+        return "";
+    }
 }

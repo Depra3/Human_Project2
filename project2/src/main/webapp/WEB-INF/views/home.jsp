@@ -45,10 +45,13 @@ $(document)
     <table border="1" align="center" id="tblboard">
         <tr>
             <!-- <th>글 번호</th> -->
-            <th>글 제목</th><th>글 내용</th><th>글 작성자</th><th>등록 일자</th><th>수정 일자</th><th>작업 선택</th>
+            <th>글 제목</th><th>글 내용</th><th>글 작성자</th><th>등록 일자</th><th>수정 일자</th>
+            <c:if test="${not empty gUserid}">
+                <th>작업 선택</th>
+            </c:if>
         </tr>
         <c:forEach var="cList" items="${cList}">
-            <tr>
+            <tr id="trA">
                 <!-- <td>${cList.num}</td> -->
                 <td>${cList.title}</td>
                 <td>${cList.content}</td>
@@ -57,12 +60,14 @@ $(document)
                 <td>${r_date}</td>
                 <fmt:formatDate var="m_date" value="${cList.mod_date}" pattern="yyyy-MM-dd"/>
                 <td>${m_date}</td>
-                <td>
-                <c:if test="${gUserid eq cList.author}">
+                
+                <c:if test="${gUserid eq cList.author && admin eq 'False'}">
+                    <td>
                     <input type="button" id="btnUp" name="btnUp" value="수정">
                     <input type="button" id="btnDel" name="btnDel" value="삭제"></td>
                 </c:if>
-                <c:if test="${'True' eq List.admin}">
+                <c:if test="${admin eq 'True'}">
+                    <td>
                     <input type="button" id="btnUp" name="btnUp" value="수정">
                     <input type="button" id="btnDel" name="btnDel" value="삭제"></td>
                 </c:if>
