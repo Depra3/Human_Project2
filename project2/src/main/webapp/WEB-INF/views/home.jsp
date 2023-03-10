@@ -35,7 +35,19 @@ $(document)
         }
     }, 'text');
 })
+.on('click','#boardView',function(){
+    let ndx = $(this).parent().parent().index();
+    let id = $('#tblboard tr:eq(' + ndx + ') td:eq(0) input').val();
+    // console.log(id);
+    $.post('/boardView',{optype:'view', id:id},function(){
+    },'text');
+})
 </script>
+<style>
+    #tblboard {
+        width: 700px;
+    }
+</style>
 <body>
     <h1>홈페이지</h1>
     
@@ -44,21 +56,20 @@ $(document)
     <div id="dvHead" style="width: 100%;"></div>
     <table border="1" align="center" id="tblboard">
         <tr>
-            <!-- <th>글 번호</th> -->
-            <th>글 제목</th><th>글 내용</th><th>글 작성자</th><th>등록 일자</th><th>수정 일자</th>
+            <th>번호</th><th>글 제목</th><th>글 작성자</th><th>조회수</th><th>등록 일자</th><th>수정 일자</th>
             <c:if test="${not empty gUserid}">
                 <th>작업 선택</th>
             </c:if>
         </tr>
         <c:forEach var="cList" items="${cList}">
             <tr id="trA">
-                <!-- <td>${cList.num}</td> -->
-                <td>${cList.title}</td>
-                <td>${cList.content}</td>
+                <td align="center"><input type="hidden" value="${cList.id}"></td>
+                <td><a href="/boardView" id="boardView">${cList.title}</a></td>
                 <td>${cList.author}</td>
-                <fmt:formatDate var="r_date" value="${cList.reg_date}" pattern="yyyy-MM-dd"/>
+                <td>${cList.join}</td>
+                <fmt:formatDate var="r_date" value="${cList.reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/>
                 <td>${r_date}</td>
-                <fmt:formatDate var="m_date" value="${cList.mod_date}" pattern="yyyy-MM-dd"/>
+                <fmt:formatDate var="m_date" value="${cList.mod_date}" pattern="yyyy-MM-dd hh:mm:ss"/>
                 <td>${m_date}</td>
                 
                 <c:if test="${gUserid eq cList.author && admin eq 'False'}">
@@ -66,7 +77,7 @@ $(document)
                     <input type="button" id="btnUp" name="btnUp" value="수정">
                     <input type="button" id="btnDel" name="btnDel" value="삭제"></td>
                 </c:if>
-                <c:if test="${admin eq 'True'}">
+                <c:if test="${admin eq 'True' || admin eq 'M'}">
                     <td>
                     <input type="button" id="btnUp" name="btnUp" value="수정">
                     <input type="button" id="btnDel" name="btnDel" value="삭제"></td>
@@ -74,5 +85,6 @@ $(document)
             </tr>
         </c:forEach>
     </table>
+    <a href="/mg">관</a>
 </body>
 </html>

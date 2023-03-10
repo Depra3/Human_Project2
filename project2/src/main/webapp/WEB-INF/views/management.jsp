@@ -12,20 +12,10 @@ var tbl;
 $(document)
 .ready(function(){
     if("${admin}" == '' || "${admin}" == 'False'){
-        alert('관리자 페이지 입니다.')
-        document.location="/"
+        alert('관리자 페이지 입니다.');
+        document.location="/";
     }
-    str = '<c:forEach var="mem" items="${mList}"> \
-            <tr> \
-                <td><input type="checkbox" name="chkList" value="${mem.uid}"></td> \
-                <td>${mem.uid}</td> \
-                <td>${mem.nickname}</td> \
-                <td>${mem.name}</td> \
-                <td>${mem.email}</td> \
-                <td>${mem.admin}</td> \
-            </tr> \
-        </c:forEach>';
-    $('#tblList').append(str);    
+    loadMemberInfo();
 })
 .on('click', '#checkall', function(){
     if (chk == 0){
@@ -39,32 +29,52 @@ $(document)
 .on('click', '#btnSch', function(){
     $('#tblList tr:gt(0)').remove();
     let search = $('#search').val();
-    $.get('/memSearch',{},function(data){
+    $.get('/memInfo',{},function(data){
         for (i = 0; i < data.length; i++) {
             let m_List = data[i];
-            console.log(m_List)
+            // console.log(m_List);
             if (m_List['nickname'].includes(search)) {
-                let str = '<tr><td><input type="checkbox" name="chkList" value='+ m_List["uid"] +'></td>'+
-                            '<td>'+m_List['uid']+'</td><td>'+m_List['nickname']+'</td><td>'+m_List['name']+'</td><td>'+m_List['email']+'</td><td>'+m_List['admin']+'</td></tr>';
+                let str = '<tr align="center"><td><input type="checkbox" name="chkList" value='+ m_List["uid"] +'></td>'+
+                            '<td>'+m_List['uid']+'</td><td>'+m_List['nickname']+'</td><td>'+m_List['name']+
+                            '</td><td>'+m_List['email']+'</td><td>'+m_List['admin']+'</td><td>'+m_List['sort']+'</td></tr>';
                 $('#tblList').append(str);
             }            
         }
     }, 'json');
 })
-.on('click', '#btnDel',function(){
+.on('click', '#btnAdmin',function(){
     let va = [];
     $("input[name='chkList']:checked").each(function(){
         va.push($(this).val());
     })
     console.log(va);
-    $.get('/memDel',{optype:'delete', delList:va},function(){
-        
-    }, 'text');
-    // return false;
+    for(i=0;i<=va.length-1;i++){
+        $.get('/memMod',{optype:'delete', list:va[i]},function(){
+            document.location="/mg"
+        }, 'text');
+    }
 })
+
+function loadMemberInfo(){
+    $('#tblList tr:gt(0)').remove();
+    $.get('/memInfo',{},function(data){
+        for (i = 0; i < data.length; i++) {
+            let m_List = data[i];
+            let str = '<tr align="center"><td><input type="checkbox" name="chkList" value='+ m_List["uid"] +'></td>'+
+                        '<td>'+m_List['uid']+'</td><td>'+m_List['nickname']+'</td><td>'+m_List['name']+
+                        '</td><td>'+m_List['email']+'</td><td>'+m_List['admin']+'</td><td>'+m_List['sort']+'</td></tr>';
+            $('#tblList').append(str);
+        }
+    }, 'json');
+}
 </script>
+<style>
+    #tblList{
+        width: 600px;
+    }
+</style>
 <body>
-    <c:if test="${admin eq 'True'}">
+    <c:if test="${admin eq 'True' || admin eq 'M'}">
         <table>
             <tr>
                 <td>
@@ -84,14 +94,10 @@ $(document)
                         <th>이름</th>
                         <th>이메일</th>
                         <th>관리자 구분</th>
+                        <th>가입 구분</th>
                     </tr>
                 </table>
             </td></tr>
-            <tr>
-                <td colspan="2" align="right">
-                    <input type="button" id="btnDel" name="btnDel" width="100" value="삭제">
-                </td>
-            </tr>
         </table>
     </c:if>
 </body>

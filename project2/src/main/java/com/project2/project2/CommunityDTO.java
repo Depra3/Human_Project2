@@ -9,11 +9,12 @@ import java.util.Date;
 public class CommunityDTO {
 
     @Id
-    private String id;
+    private String _id;
     private Integer num;
     private String title;
     private String content;
     private String author;
+    private Integer join;
     private Date reg_date;
     private Date mod_date;
 
@@ -28,17 +29,18 @@ public class CommunityDTO {
     // }
 
     public String getId() {
-        return id;
+        return _id;
     }
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String _id) {
+        this._id = _id;
     }
     public Integer getNum() {
         return num;
     }
-    public void setNum(Integer num) {
+    public void setId(Integer num) {
         this.num = num;
     }
+
     public String getTitle() {
         return title;
     }
@@ -57,6 +59,12 @@ public class CommunityDTO {
     public void setAuthor(String author) {
         this.author = author;
     }
+    public Integer getJoin(){
+        return join;
+    }
+    public void setJoin(Integer join){
+        this.join = join;
+    }
     public Date getReg_date() {
         return reg_date;
     }
@@ -72,7 +80,7 @@ public class CommunityDTO {
     
     @Override
     public String toString(){
-        return "CommunityDTO{ num=" + num + ", title=" + title + ", content=" + content + 
+        return "CommunityDTO{ title=" + title + ", content=" + content + 
                             ", author=" + author + ",req_date=" + reg_date + ",mod_date=" + mod_date + "}";
     }
 }

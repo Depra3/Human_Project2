@@ -1,9 +1,10 @@
 package com.project2.project2;
 
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import javax.swing.GroupLayout.Group;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,8 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +28,7 @@ public class MyController {
     @Autowired
     private CommunityDAO cDao;
 
+    
     @GetMapping("/")
     public String index(Model m){
         List<CommunityDTO> cList = cDao.findAll();
@@ -107,31 +109,32 @@ public class MyController {
     public String doBoard(CommunityDTO cDto, HttpServletRequest req){
         HttpSession ses = req.getSession();
         String author = (String) ses.getAttribute("gUserid");
-        // cDto.setNum();
-        // int maxValue = cDto.getNum().getInteger("maxValue");
-        // if (maxValue != 1){
-        //     maxValue = 1;
-        // }
-        // SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        // Date date = new Date();
-        // String iDate = sDate.format(date);
-        // cDto.setReg_date(iDate);
+        List<CommunityDTO> cDto2 = cDao.findAll();
+        // int a = cDao.find;
         cDto.setReg_date(new Date());
         cDto.setMod_date(null);
+        cDto.setJoin(0);
         cDto.setAuthor(author);
         cDao.save(cDto);
         return "redirect:/";
     }
+    @ResponseBody
+    @RequestMapping("/boardView")
+    public String addJoin(HttpServletRequest req, Model m){
+        String id = req.getParameter("id");
+        CommunityDTO cDto = cDao.findby_Id(id);
+        // System.out.println(a);
+        m.addAttribute("comm", cDto);
+        return "boardView";
+    }
 
     @GetMapping("/mg")
     public String doManage(Model m){
-        List<MemberDTO> mList = mDao.findAll();
-        m.addAttribute("mList", mList);
         return "management";
     }
 
     @ResponseBody
-    @RequestMapping("/memSearch")
+    @RequestMapping("/memInfo")
     public String searchMem() {
         List<MemberDTO> m_List = mDao.findAll();
         JSONArray ja = new JSONArray();
@@ -143,19 +146,28 @@ public class MyController {
             jo.put("name", m_List.get(i).getName());
             jo.put("email", m_List.get(i).getEmail());
             jo.put("mobile", m_List.get(i).getMobile());
+            jo.put("admin", m_List.get(i).getAdmin());
+            jo.put("sort", m_List.get(i).getSort());
             ja.add(jo);
         }
         return ja.toString();
     }
 
     @ResponseBody
-    @RequestMapping("/memDel")
-    public String delMem(HttpServletRequest req, @RequestParam(value="arr") String[] array){
-        if (req.getParameter("optype").equals("delete")) {
-            String d_List = req.getParameter("delList");
-            System.out.println(d_List);
+    @RequestMapping("/memMod")
+    public String upMem(HttpServletRequest req){
+        String uid = req.getParameter("list");
+        MemberDTO mDto = mDao.findByUid(uid);
+        if(mDto != null && req.getParameter("optype").equals("delete")){
+            if(mDto.getAdmin().equals("False")){
+                mDto.setAdmin("True");
+            }else if(mDto.getAdmin().equals("True")){
+                mDto.setAdmin("False");
+            }
+            mDao.save(mDto);
         }
-        // mDao.deleteById(null);
         return "";
     }
 }
+        
+
