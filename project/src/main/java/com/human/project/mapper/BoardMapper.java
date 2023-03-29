@@ -12,9 +12,6 @@ import com.human.project.domain.Page;
 @Mapper
 public interface BoardMapper {
 
-	// 게시글 목록
-	public List<Board> list() throws Exception;
-	
 	// 게시글 쓰기
 	public int insert(Board board) throws Exception;
 	
@@ -26,24 +23,23 @@ public interface BoardMapper {
 	
 	// 게시글 삭제
 	public int delete(int boardNo) throws Exception;
-
-	// 게시글 검색
-	public List<Board> search(String keyword) throws Exception;
 	
-	// [페이지] 게시글 목록
-	public List<Board> page(Page page) throws Exception;
-	
-	// 게시글 개수
-	public int count() throws Exception;
-	
-	// [검색][페이지] 게시글 목록
-//	public List<Board> boardList(@Param("page") Page page, @Param("keyword") String keyword) throws Exception;
-//	public List<Board> boardList(Page page, @Param("keyword") String key) throws Exception; // 쿼리에서는 keyword로 인식
+	// [검색][페이지][옵션] 게시글 목록
 	public List<Board> boardList(@Param("page") Page page, @Param("option") Option option) throws Exception;
 	
 	// [검색] 게시글 개수
-//	public int countWithKeyword(String keyword) throws Exception;
-	// [검색 + 옵션] 게시글 개수
 	public int countWithKeyword(@Param("option") Option option) throws Exception;
+
 	
 }
+
+
+
+
+
+
+
+
+
+
+

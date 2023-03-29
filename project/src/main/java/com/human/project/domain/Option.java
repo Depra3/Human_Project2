@@ -11,6 +11,7 @@ public class Option {
 	// 2 : 내용
 	// 3 : 제목 + 내용
 	// 4 : 작성자
+	String tag;
 	
 	
 	public Option() {

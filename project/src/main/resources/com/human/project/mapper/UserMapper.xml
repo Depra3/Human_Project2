@@ -4,10 +4,31 @@
 
 <mapper namespace="com.human.project.mapper.UserMapper">
 
+	<!-- 유저 매핑 -->
+	<resultMap type="Users" id="userMap">
+		<id property="userId" column="user_id"/>
+		<result property="userNo" column="user_no"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="nickname" column="nickname"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="enabled" column="enabled"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="updDate" column="upd_date"/>
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+	
+	<!-- 권한 매핑 -->
+	<resultMap type="UserAuth" id="authMap">
+		<id property="authNo" column="auth_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+
 	<!-- 회원가입 -->
 	<insert id="join">
-		INSERT INTO users ( user_id, user_pw, name, email )
-		VALUES ( #{userId}, #{userPw}, #{name}, #{email} )
+		INSERT INTO users ( user_id, user_pw, nickname, name, email )
+		VALUES ( #{userId}, #{userPw}, #{nickname}, #{name}, #{email})
 	</insert>
 	
 	<!-- 권한등록 -->
@@ -20,31 +41,35 @@
 	<select id="select" resultType="Users">
 		SELECT *
 		  FROM users
+		 WHERE user_id = #{userId}
+		 	OR nickname = #{nickname}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId">
+		SELECT *
+		FROM users
+		WHERE name = #{name} and email = #{email}
+
+		  FROM users
 		 WHERE user_id = #{userId} 
 	</select>
 	
-	<!-- 회원 목록 -->
-	<select id="list" resultType="Users">
-		SELECT *
-		  FROM users 
-	  ORDER BY user_no ASC;
-	</select>
+	<!-- 회원 수정 -->
+	<update id="update">
+		UPDATE 	users
+		SET		nickname = #{nickname},
+				name = #{name},
+				email = #{email},
+				upd_date = now()
+		WHERE 	user_id = #{userId}
+	</update>
 
+	<!-- 회원 삭제 -->
+	<delete id="delete">
+		DELETE FROM users
+		WHERE  user_id = #{userId}
+	</delete>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

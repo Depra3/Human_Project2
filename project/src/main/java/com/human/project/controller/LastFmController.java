@@ -33,7 +33,7 @@ public class LastFmController {
     public String Reset() throws IOException {
         chartRepository.deleteAll();
         lastFmService.getChart();
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/{id}")
