@@ -43,7 +43,7 @@ public class AdminServiceImpl implements AdminService {
 		return userList;
 	}
 	
-	// 회원 삭제
+	// 회원 선택 삭제
 	@Override
 	public int delete(List<String> userNoList) throws Exception {
 		String noList = "";
@@ -100,6 +100,7 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 
+	// 닉네임 변경
 	@Override
 	public int modNick(List<String> userNoList) throws Exception {
 		String noList = "";
@@ -113,11 +114,23 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 
+	// 유저 권한 리스트
 	@Override
 	public List<UserAuth> authListByUid(String userId) throws Exception {
 		return adminMapper.authListByUid(userId);
 	}
 
-	
-
+	// 게시글 선택 삭제
+	@Override
+	public int deleteSelectedBoard(List<String> boardNoList) throws Exception {
+		String noList = "";
+		for (int i = 0; i < boardNoList.size(); i++) {
+			noList += boardNoList.get(i);
+			if (i+1 != boardNoList.size() ) {
+				noList += ", ";
+			}
+		}
+		int result = adminMapper.deleteSelectedBoard(noList);
+		return result;
+	}
 }

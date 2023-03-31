@@ -14,7 +14,6 @@ import com.human.project.domain.Option;
 import com.human.project.domain.Page;
 import com.human.project.domain.Users;
 import com.human.project.service.AdminService;
-import com.human.project.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +25,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	// ADMIN 회원 관리
 	@GetMapping({"", "/", "/index"})
 	public String index(Model model, Option option, Page page) throws Exception {
 
@@ -36,6 +36,7 @@ public class AdminController {
 		return "/admin/index";
 	}
 	
+	// ADMIN 권한 관리
 	@GetMapping("/role")
 	public String role(Model model, Option option, Page page) throws Exception {
 		
@@ -44,13 +45,6 @@ public class AdminController {
 		model.addAttribute("page", page);
 		
 		return "/admin/role";
-	}
-
-	@GetMapping("/test")
-	public String test() {
-		log.info("테스트... (삭제 예정)");
-
-		return "/admin/test";
 	}
 	
 	// 유저 선택 삭제
@@ -65,7 +59,7 @@ public class AdminController {
 	}
 	
 	// 유저 권한 추가
-	@PostMapping("/addauth")
+	@PostMapping("/addAuth")
 	public String addAuth(@RequestParam(value="radio_val") String userNo, @RequestParam(value="auth_val") String authVal) throws Exception {
 		int result = adminService.addAuth(userNo, authVal);
 		
@@ -79,7 +73,7 @@ public class AdminController {
 	}
 	
 	// 유저 권한 삭제
-	@PostMapping("/delauth")
+	@PostMapping("/delAuth")
 	public String delAuth(@RequestParam(value="radio_val") String userNo, @RequestParam(value="auth_val") String authVal) throws Exception {
 		int result = adminService.delAuth(userNo, authVal);
 		if (result > 0) {
@@ -93,12 +87,21 @@ public class AdminController {
 	}
 	
 	// 불건전한 유저 닉네임 변경
-	@PostMapping("/modnick")
+	@PostMapping("/modNick")
 	public String modNick(@RequestParam(value="chkbox[]") List<String> userNoList) throws Exception{
 		int result = adminService.modNick(userNoList);
 		if (result > 0) log.info("닉네임 변경 성공");
 		else 			log.info("닉네임 변경 실패");
 		return "redirect:/admin";
+	}
+	
+	// 게시글 선택 삭제
+	@PostMapping("/boardDel")
+	public String boardDel(@RequestParam(value="chkbox[]") List<String> boardNoList) throws Exception{
+		int result = adminService.deleteSelectedBoard(boardNoList);
+		if (result > 0)		log.info("게시글 선택 삭제 성공");
+		else				log.info("게시글 선택 삭제 실패");
+		return "redirect:/board/list";
 	}
 
 }

@@ -14,14 +14,8 @@
 	<style>
 		th, td {
 			font-size: 20px;
-			color: #b81010;
+			color: #000000;
 			text-align: center;
-		}
-		#srh{
-			text-align: left;
-		}
-		#rowsPerPag{
-			align-content : right;
 		}
 	</style>
 	<!-- csrf 토큰 -->
@@ -207,14 +201,14 @@
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		
-		let result = confirm("불건전한 닉네임을 변경하시겠습니까?")
+		let result = confirm("닉네임을 '불건전한 닉네임'으로 변경하시겠습니까?")
 		if (result) {
 			$('.input-check:checked').each(function(){
 				chkarr.push($(this).val());
 			})
 
 			$.ajax({
-				url: '/admin/modnick',		// 요청 경로
+				url: '/admin/modNick',		// 요청 경로
 				type: 'post',				// 메소드 방식(get, post, put 등)
 				data: {chkbox : chkarr},				// 전송할 데이터
 				

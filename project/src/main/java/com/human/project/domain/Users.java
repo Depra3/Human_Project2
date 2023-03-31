@@ -19,8 +19,8 @@ public class Users {
 	private String userId;
 	
 	@NotBlank(message = "*반드시 입력해야합니다.")
-//	@Size(min = 8, max = 20, message = "*8글자 이상 20자 이하로 입력해야합니다.")
-//	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,20}", message = "영문자, 숫자, 특수문자를 각각 하나 이상 포함해야합니다.")
+	@Size(min = 8, max = 20, message = "*8글자 이상 20자 이하로 입력해야합니다.")
+	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,20}", message = "영문자, 숫자, 특수문자를 각각 하나 이상 포함해야합니다.")
 	private String userPw;
 	
 	@NotBlank(message = "*반드시 입력해야합니다.")

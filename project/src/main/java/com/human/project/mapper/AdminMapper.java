@@ -46,5 +46,8 @@ public interface AdminMapper {
 	// 회원 권한 조회 (아이디로)
 	public List<UserAuth> authListByUid(String userId) throws Exception;
 	
+	// 게시글 선택 삭제
+	public int deleteSelectedBoard(@Param("noList") String noList) throws Exception;
+	
 	
 }

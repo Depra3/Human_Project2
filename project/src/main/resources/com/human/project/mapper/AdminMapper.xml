@@ -25,14 +25,6 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	
-	
-	
-	<!-- 회원 수 -->
-	<select id="userCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM users
-	</select>
-	
 	<!-- 회원 수 - 검색어 포함 -->
 	<select id="cntWithKeyword" resultType="int">
 		SELECT count(*)
@@ -90,7 +82,7 @@
 		LIMIT #{page.index}, #{page.rowsPerPage}
 	</select>
 	
-	<!-- 회원 다중 삭제 -->
+	<!-- 회원 선택 삭제 -->
 	<delete id="deleteSelectedUser">
 		DELETE FROM users
 		 WHERE user_no in ( ${noList} )
@@ -163,14 +155,9 @@
 		WHERE user_id = #{user_id}
 	</select>
 
+	<!-- 게시글 선택 삭제 -->
+	<delete id="deleteSelectedBoard">
+		DELETE FROM board
+		 WHERE board_no in ( ${noList} )
+	</delete>
 </mapper>
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,5 @@
 package com.human.project.service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,14 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
-import com.human.project.domain.Board;
-import com.human.project.domain.Option;
-import com.human.project.domain.Page;
 import com.human.project.domain.UserAuth;
 import com.human.project.domain.UserSocial;
 import com.human.project.domain.Users;
-import com.human.project.mapper.BoardMapper;
-import com.human.project.mapper.CommentMapper;
 import com.human.project.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,14 +31,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	
-	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;	// 인증 관리자
 
+	// 회원가입
 	@Override
 	public int join(Users user) throws Exception {
 		// 비밀번호 암호화
@@ -104,30 +97,35 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	// 권한등록
 	@Override
 	public int insertAuth(UserAuth userAuth) throws Exception {
 		int result = userMapper.insertAuth(userAuth);
 		return result;
 	}
 
+	// social 회원가입
 	@Override
 	public int insertSocial(UserSocial userSocial) throws Exception {
 		int result = userMapper.insertSocial(userSocial);
 		return result;
 	}
-	
+
+	// 회원조회
 	@Override
 	public Users select(Users user) throws Exception {
 		Users selectedUser = userMapper.select(user);
 		return selectedUser;
 	}
-	
+
+	// 회원조회
 	@Override
 	public Users selectByEmail(Users user) throws Exception {
 		Users selectedUser = userMapper.selectByEmail(user);
 		return selectedUser;
 	}
 
+	// 토큰인증 (바로 로그인)
 	@Override
 	public boolean tokenAuthentication(Users user, HttpServletRequest request) throws Exception {
 		
@@ -164,18 +162,21 @@ public class UserServiceImpl implements UserService {
 	}
 	
 
+	// 회원 수정
 	@Override
 	public int update(Users user) throws Exception {
 		int result = userMapper.update(user);
 		return result;
 	}
 
+	// 회원 삭제
 	@Override
 	public int delete(Users user) throws Exception {
 		int result = userMapper.delete(user);
 		return result;
 	}
 
+	// 모든 쿠키 삭제
 	@Override
 	public boolean deleteCookies(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -194,8 +195,25 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 	
-	
+	// 아이디 찾기
+	@Override
+	public Users findId(Users user) throws Exception {
+		Users findId = userMapper.findId(user);
+		return findId;
+	}
 
+	// 비밀번호 찾기
+	@Override
+	public Users findPw(Users user) throws Exception {
+		Users findPw = userMapper.findPw(user);
+		return findPw;
+	}
+	// 임시 비밀번호 발급 & 비밀번호 변경
+	@Override
+	public int newPw(Users user) throws Exception {
+		int result = userMapper.newPw(user);
+		return result;
+	}
 }
 
 
