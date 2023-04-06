@@ -1,7 +1,14 @@
 ## Project 2 : Last Carnival!
-[image](https://user-images.githubusercontent.com/120995555/230264797-1d51da65-b697-4a9a-a95a-6e3d594e6189.png)
+![index](https://user-images.githubusercontent.com/120995522/230261320-2809c8f6-0e18-4b42-8576-9913432e5833.PNG)
 
-## 목적
+
+## 주제
+- 해외 음원 차트가 포함된 웹 사이트 커뮤니티
+
+## 프로젝트 배경
+- 현재 대부분의 국내 음원 사이트들은 해외 음원을 다루지 않고 있음
+- 국내 음원 사이트 이용자들의 경우, 해외 차트도 이용하길 원하는 needs가 존재하는 것을 확인
+- 해외 음원 차트 기능이 포함 된 커뮤니티의 필요성을 통해 본 프로젝트를 진행
 
 ***
 
@@ -26,3 +33,10 @@
 - 참조 API : <img src="https://img.shields.io/badge/lastdotfm-D51007?style=flat&logo=lastdotfm&logoColor=white"/> <img src="https://img.shields.io/badge/youtube-FF0000?style=flat&logo=youtube&logoColor=white"/> <img src="https://img.shields.io/badge/kakao-FFCD00?style=flat&logo=kakao&logoColor=white"/>
 - 협업 Tools : <img src="https://img.shields.io/badge/slack-4A154B?style=flat&logo=slack&logoColor=white"/> <img src="https://img.shields.io/badge/trello-0052CC?style=flat&logo=trello&logoColor=white"/>
 - 웹 IDE : <img src="https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white"/>
+***
+
+## 주요 기능
+- 음원 차트 (Index)
+- 게시판
+- 소셜 회원가입(카카오)
+- 관리자 페이지
