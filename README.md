@@ -1,9 +1,14 @@
 # 프로젝트: Last Carnival
 ![index](https://user-images.githubusercontent.com/120995522/230261320-2809c8f6-0e18-4b42-8576-9913432e5833.PNG)
 
-
 ## 주제
 - 해외 음원 차트가 포함된 웹 사이트 커뮤니티
+
+## 링크
+- 폴더 링크 : [Project_2](https://github.com/Depra3/Human_Project2)
+- 배포 링크 : [Last Carnival!](https://34.64.62.94:8080/)
+- 시연 영상 링크 : [시연 영상](https://youtu.be/4hcJi-qpkdU)
+- PDF : 
 
 ## 프로젝트 배경
 - 현재 대부분의 국내 음원 사이트들은 해외 음원을 다루지 않고 있음
@@ -13,10 +18,8 @@
 ### 팀 구성
 - 인원 : 8명
 
-
 ## 프로젝트 기간
 - 2023-03-27 ~ 2023-04-10
-
 
 ## 개발 환경
 - 사용 언어
